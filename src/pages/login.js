@@ -4,7 +4,7 @@ import axios from "axios";
 const Login = () => {
   const [formData, setFormData] = useState({
     phone: "",
-    password: "",
+    password: ""
   });
 
   const handleChange = (e) => {
@@ -15,8 +15,9 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://auth-backend-31a8.onrender.com/login", formData);
-      alert(response.data.message);
+      const res = await axios.post("https://auth-backend-31a8.onrender.com/login", formData);
+      localStorage.setItem("token", res.data.token);  // ✅ store JWT
+      alert("Login successful!");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
@@ -26,9 +27,11 @@ const Login = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg w-80 shadow-md space-y-4">
         <h2 className="text-2xl font-bold text-center mb-4">Log In</h2>
-        <input type="text" name="phone" placeholder="Phone Number" onChange={handleChange} className="w-full p-2 border rounded" required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} className="w-full p-2 border rounded" required />
-        <button type="submit" className="bg-green-500 text-white p-2 rounded w-full hover:bg-green-600">Log In</button>
+
+        <input name="phone" onChange={handleChange} type="text" placeholder="Phone Number" required className="w-full p-2 border rounded" />
+        <input name="password" onChange={handleChange} type="password" placeholder="Password" required className="w-full p-2 border rounded" />
+
+        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Log In</button>
       </form>
     </div>
   );
