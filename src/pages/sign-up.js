@@ -7,7 +7,8 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/signup", form);
+      const res = await axios.post("https://auth-backend-31a8.onrender.com/signup"
+, form);
       alert(res.data.message);
     } catch (err) {
       alert(err.response?.data?.message || "Signup failed");

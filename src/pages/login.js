@@ -7,7 +7,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/login", form);
+      const res = await axios.post("https://auth-backend-31a8.onrender.com/login", form);
       alert(res.data.message);
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");

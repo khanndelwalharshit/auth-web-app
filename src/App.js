@@ -6,10 +6,10 @@ import Login from "./pages/login";
 function App() {
   return (
     <Router>
-      <div className="flex justify-center gap-8 p-4">
+      <nav className="flex justify-center gap-8 p-4">
         <Link to="/signup" className="text-blue-600 underline">Sign Up</Link>
         <Link to="/login" className="text-green-600 underline">Login</Link>
-      </div>
+      </nav>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
