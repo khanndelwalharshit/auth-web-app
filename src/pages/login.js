@@ -1,44 +1,37 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function Login() {
-  const [form, setForm] = useState({ username: "", password: "" });
+const Login = () => {
+  const [formData, setFormData] = useState({
+    phone: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post("https://auth-backend-31a8.onrender.com/login", form);
-      alert(res.data.message);
+      const response = await axios.post("https://auth-backend-31a8.onrender.com/login", formData);
+      alert(response.data.message);
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-emerald-400">
-      <form onSubmit={handleSubmit} className="bg-sky-200 p-10 rounded-lg w-800 shadow-lg">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <input
-          type="text"
-          placeholder="Username"
-          required
-          className="w-full mb-4 p-2 border rounded border-blue-300 focus:border-emerald-600 focus:outline-none"
-          onChange={(e) => setForm({ ...form, username: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          className="w-full mb-4 p-2 border rounded border-blue-300 focus:border-emerald-600 focus:outline-none"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        <button
-          type="submit"
-          className="w-full bg-teal-400 text-white py-2 rounded hover:bg-teal-800"
-        >
-          Login
-        </button>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg w-80 shadow-md space-y-4">
+        <h2 className="text-2xl font-bold text-center mb-4">Log In</h2>
+        <input type="text" name="phone" placeholder="Phone Number" onChange={handleChange} className="w-full p-2 border rounded" required />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} className="w-full p-2 border rounded" required />
+        <button type="submit" className="bg-green-500 text-white p-2 rounded w-full hover:bg-green-600">Log In</button>
       </form>
     </div>
   );
-}
+};
+
+export default Login;
